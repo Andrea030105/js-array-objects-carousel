@@ -51,12 +51,18 @@ const btnBottom = document.getElementById("btn-bottom").addEventListener("click"
 })
 
 let autoPlay;
-
+let reversePlay;
 const play = document.getElementById("play").addEventListener("click", function () {
     autoPlay = setInterval(nextImg, 3000);
 })
+
 const stop = document.getElementById("stop").addEventListener("click", function () {
     clearInterval(autoPlay);
+    clearInterval(reversePlay);
+})
+
+const reverse = document.getElementById("reverse").addEventListener("click", function () {
+    reversePlay = setInterval(prevImg, 3000)
 })
 
 /* DEFINIZIONE FUNIONI */
