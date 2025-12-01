@@ -17,6 +17,7 @@ body {
 .big-img {
     width: 80%;
     height: 100%;
+    border: 2px solid white;
 }
 
 .container-img {
@@ -55,16 +56,20 @@ img {
 }
 
 .active-img-thumbnail {
-    border: 1px solid white;
-    opacity: 0;
+    border: 2px solid white;
+    opacity: 100%;
 }
 
 .opacity-thumbnail {
     opacity: 50%;
 }
 
+.container-img-thumbnail {
+    height: calc(100% / 5);
+}
+
 .container-img-thumbnail img {
-    height: 100px;
+    height: 100%;
 }
 
 button {

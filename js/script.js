@@ -31,32 +31,44 @@ popolateBigImg();
 
 const thumbnail = document.querySelector(".thumbnail");
 popolateThumbnail();
+abilitaClickThumbnail();
 
 const containerImg = document.getElementsByClassName("container-img");
+const containerImgThumbnail = document.getElementsByClassName("container-img-thumbnail");
 let itemsActive = 0;
-containerImg[itemsActive].classList.add("active")
+containerImg[itemsActive].classList.add("active");
+containerImgThumbnail[itemsActive].classList.add("active-img-thumbnail");
+containerImgThumbnail[itemsActive].classList.remove("opacity-thumbnail");
 
 /* BUTTON */
 
 const btnTop = document.getElementById("btn-top").addEventListener("click", function () {
     if (itemsActive < imgArray.length) {
         containerImg[itemsActive].classList.remove("active");
+        containerImgThumbnail[itemsActive].classList.remove("active-img-thumbnail");
+        containerImgThumbnail[itemsActive].classList.add("opacity-thumbnail");
         itemsActive++;
         if (itemsActive === imgArray.length) {
             itemsActive = 0;
         }
         containerImg[itemsActive].classList.add("active");
+        containerImgThumbnail[itemsActive].classList.add("active-img-thumbnail", "opacity-thumbnail");
+        containerImgThumbnail[itemsActive].classList.remove("opacity-thumbnail");
     }
 })
 
 const btnBottom = document.getElementById("btn-bottom").addEventListener("click", function () {
     if (itemsActive < imgArray.length) {
         containerImg[itemsActive].classList.remove("active");
+        containerImgThumbnail[itemsActive].classList.remove("active-img-thumbnail");
+        containerImgThumbnail[itemsActive].classList.add("opacity-thumbnail");
         if (itemsActive === 0) {
             itemsActive = 5;
         }
         itemsActive--;
         containerImg[itemsActive].classList.add("active");
+        containerImgThumbnail[itemsActive].classList.add("active-img-thumbnail", "opacity-thumbnail");
+        containerImgThumbnail[itemsActive].classList.remove("opacity-thumbnail");
     }
 })
 
@@ -75,10 +87,38 @@ function popolateBigImg() {
 }
 
 function popolateThumbnail() {
+    let i = 1;
     imgArray.forEach(element => {
         thumbnail.innerHTML += `
         <div class="container-img-thumbnail opacity-thumbnail">
-        <img src="${element.urlImg}">
+        <img id="img-${i}" src="${element.urlImg}">
         </div>`
+        i++;
+    });
+}
+
+function abilitaClickThumbnail() {
+    const allThumbnails = document.querySelectorAll(".container-img-thumbnail");
+    const allBigImages = document.querySelectorAll(".container-img");
+
+    allThumbnails.forEach((thumb, idx) => {
+        thumb.addEventListener("click", () => {
+            // Rimuovi tutte le classi active dalle immagini grandi e thumbnail
+            allBigImages.forEach(img => img.classList.remove("active"));
+            allThumbnails.forEach(th => {
+                th.classList.remove("active-img-thumbnail");
+                th.classList.add("opacity-thumbnail");
+            });
+
+            // Attiva la thumbnail cliccata
+            thumb.classList.add("active-img-thumbnail");
+            thumb.classList.remove("opacity-thumbnail");
+
+            // Attiva l’immagine grande corrispondente
+            allBigImages[idx].classList.add("active");
+
+            // Aggiorna l'indice corrente
+            itemsActive = idx;
+        });
     });
 }
