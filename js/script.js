@@ -43,6 +43,25 @@ containerImgThumbnail[itemsActive].classList.remove("opacity-thumbnail");
 /* BUTTON */
 
 const btnTop = document.getElementById("btn-top").addEventListener("click", function () {
+    nextImg();
+})
+
+const btnBottom = document.getElementById("btn-bottom").addEventListener("click", function () {
+    prevImg();
+})
+
+let autoPlay;
+
+const play = document.getElementById("play").addEventListener("click", function () {
+    autoPlay = setInterval(nextImg, 3000);
+})
+const stop = document.getElementById("stop").addEventListener("click", function () {
+    clearInterval(autoPlay);
+})
+
+/* DEFINIZIONE FUNIONI */
+
+function nextImg() {
     if (itemsActive < imgArray.length) {
         containerImg[itemsActive].classList.remove("active");
         containerImgThumbnail[itemsActive].classList.remove("active-img-thumbnail");
@@ -55,9 +74,9 @@ const btnTop = document.getElementById("btn-top").addEventListener("click", func
         containerImgThumbnail[itemsActive].classList.add("active-img-thumbnail", "opacity-thumbnail");
         containerImgThumbnail[itemsActive].classList.remove("opacity-thumbnail");
     }
-})
+}
 
-const btnBottom = document.getElementById("btn-bottom").addEventListener("click", function () {
+function prevImg() {
     if (itemsActive < imgArray.length) {
         containerImg[itemsActive].classList.remove("active");
         containerImgThumbnail[itemsActive].classList.remove("active-img-thumbnail");
@@ -70,10 +89,7 @@ const btnBottom = document.getElementById("btn-bottom").addEventListener("click"
         containerImgThumbnail[itemsActive].classList.add("active-img-thumbnail", "opacity-thumbnail");
         containerImgThumbnail[itemsActive].classList.remove("opacity-thumbnail");
     }
-})
-
-/* DEFINIZIONE FUNIONI */
-
+}
 
 function popolateBigImg() {
     for (let i = 0; i < imgArray.length; i++) {
